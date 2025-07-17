@@ -1,14 +1,21 @@
 # PLL Scoring for Protein Sequences (ESM2)
 
-This tool calculates the **Pseudo Log-Likelihood (PLL)** and **Pseudo-Perplexity (PPPL)** of protein sequences using [Meta AI's ESM2 model](https://github.com/facebookresearch/esm). These scores help quantify how "natural" a protein looks to a protein language model, making it useful for evaluating designed sequences like antibodies or binders.
+This tool calculates the **Pseudo Log-Likelihood (PLL)** and **Pseudo-Perplexity (PPPL)** of protein sequences using [Meta AI's ESM2 model](https://github.com/facebookresearch/esm). These scores help quantify how "natural" a protein looks to a protein language model. Making it useful for evaluating designed sequences like antibodies or binders.
 
 ---
 
-## Example Output
+## Usage
+
+Score a FASTA file containing a single protein sequence (binder only):
+
+```bash
+python pll_score.py --fasta example_binder.fasta
+```
+
+### Example Output
 
 ```
 Reading sequences from example_binder.fasta
-
 Scoring: Cradle_EGFR_241aa (length: 241)
 PLL: -301.2522
 Avg Log-Likelihood: -1.2500
@@ -17,47 +24,34 @@ PPPL: 3.4904
 
 ---
 
+
 ## Installation
 
-### 1. Install Dependencies
+### 1. Create a Conda Environment (Recommended)
+
+```bash
+conda create -n pll_env python=3.8
+conda activate pll_env
+```
+
+### 2. Install Dependencies
 
 ```bash
 pip install fair-esm torch biopython
 ```
 
-> Requires Python 3.8+, and a GPU is recommended (but CPU works for short sequences).
+Requires Python 3.8+. A GPU is recommended (but CPU works for short sequences).
+
+
+## Files
+
+- `pll_score.py` – script to score PLL and PPPL using a sequence from a FASTA file
+- `example_binder.fasta` – example input binder sequence from Adaptyv Bio challenge
 
 ---
 
-## Usage
+## Citation
 
-### 1. Save your protein sequences in FASTA format
-
-Example (`example_binder.fasta`):
-
-```
->Cradle_EGFR_241aa
-QVQLQQSGPGLVQPSQSLSITCTVSGFSLTNYGVHWVRQSPGKGLEWLGVIWSGGNTDYNTPFTSRLSISRDTSKSQVFFKMNSLQTDDTAIYYCARALTYYDYEFAYWGQGTLVTVSAGGGGSGGGGSGGGGSDILLTQSPVILSVSPGERVSFSCRASQSIGTNIHWYQQRTNGSPKLLIRYASESISGIPSRFSGSGSGTDFTLSINSVDPEDIADYYCQQNNNWPTTFGAGTKLELK
-```
-
-### 2. Run the script
-
-```bash
-python pll_score.py --fasta example_binder.fasta
-```
+If you use this tool, please cite [Meta AI's ESM2 models](https://github.com/facebookresearch/esm).
 
 ---
-
-## Files in this Repository
-
-| File                   | Description                                  |
-|------------------------|----------------------------------------------|
-| `pll_score.py`         | Script for PLL/PPPL scoring using ESM2       |
-| `example_binder.fasta` | Sample binder sequence from Adaptyv Bio      |
-| `LICENSE`              | MIT License                                  |
-
----
-
-## License
-
-MIT License — free to use, modify, and share.
